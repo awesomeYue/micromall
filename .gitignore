@@ -23,6 +23,7 @@
 
 #maven ignore
 out/
+target
 
 #idea ignore
 .idea/
