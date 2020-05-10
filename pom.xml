@@ -10,7 +10,7 @@
   <packaging>war</packaging>
 
   <name>micromall Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
+
   <url>http://maven.apache.org</url>
 
   <properties>
