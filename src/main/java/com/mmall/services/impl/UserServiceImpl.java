@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
         if(vaildResponse.isSuccess()){
             return ServerResponse.createByErrorMessage("用户不存在");
         }
-        String question=userMapper.selectQuestionByUserName(username);
+        String question=userMapper.selectQuestionByUsername(username);
         if(StringUtils.isBlank(question)){
             return ServerResponse.createByErrorMessage("找回密码的问题是空的");
         }
