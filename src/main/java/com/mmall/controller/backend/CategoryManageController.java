@@ -27,7 +27,7 @@ public class CategoryManageController {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping(value = "add_category.do",method = RequestMethod.POST)
+    @RequestMapping(value = "add_category.do",method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse addCateogry(HttpSession session,String categoryName,@RequestParam(value = "parentId",defaultValue = "0") int parentId){
         User user=(User)session.getAttribute(Const.CURRENT_USER);
@@ -44,7 +44,7 @@ public class CategoryManageController {
         }
     }
 
-    @RequestMapping(value = "set_category.do",method = RequestMethod.POST)
+    @RequestMapping(value = "set_category.do",method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse updateCategory(HttpSession session,String categoryName, int parentId){
         User user=(User)session.getAttribute(Const.CURRENT_USER);
@@ -62,12 +62,12 @@ public class CategoryManageController {
     }
 
 
-    @RequestMapping(value = "get_category.do",method = RequestMethod.POST)
+    @RequestMapping(value = "get_category.do",method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<List<Category>> getChildrenParallelCategory(HttpSession session, @RequestParam(value = "categoryId",defaultValue = "0") Integer categoryId){
         User user=(User)session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录，请登录");
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录，请登录!");
         }
         //校验一下是否为管理员登录
         if (userService.checkAdminRole(user).isSuccess()) {
@@ -79,7 +79,7 @@ public class CategoryManageController {
         }
     }
 
-    @RequestMapping(value = "get_deep_category.do",method = RequestMethod.POST)
+    @RequestMapping(value = "get_deep_category.do",method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getCategoryAndRecursionChildrenCategory(HttpSession session,@RequestParam(value="categoryId",defaultValue = "0")Integer categoryId){
         User user=(User)session.getAttribute(Const.CURRENT_USER);
