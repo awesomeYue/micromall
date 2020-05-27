@@ -35,9 +35,8 @@ public class MD5Util {
      * @return
      */
     private static String MD5Encode(String origin, String charsetname) {
-        String resultString = null;
+        String resultString = origin;
         try {
-            resultString = new String(origin);
             MessageDigest md = MessageDigest.getInstance("MD5");
             if (charsetname == null || "".equals(charsetname)){
                 resultString = byteArrayToHexString(md.digest(resultString.getBytes()));
@@ -55,7 +54,7 @@ public class MD5Util {
     }
 
 
-    private static final String hexDigits[] = {"0", "1", "2", "3", "4", "5",
+    private static final String[] hexDigits = {"0", "1", "2", "3", "4", "5",
             "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
 
     public static void main(String[] args) {

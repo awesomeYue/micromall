@@ -25,6 +25,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     CategoryMapper categoryMapper;
 
+    @Autowired
+    CategoryService categoryService;
+
     @Override
     public ServerResponse addCategory(String cateName, Integer parentId) {
         if (parentId == null || StringUtils.isBlank(cateName)) {
@@ -67,7 +70,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public ServerResponse selectCategoryAndChildrenById(Integer categoryId){
+    public ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId){
         Set<Category> categorySet= Sets.newHashSet();
         findChildCategory(categorySet,categoryId);
         List<Integer>categoryIdList=Lists.newArrayList();

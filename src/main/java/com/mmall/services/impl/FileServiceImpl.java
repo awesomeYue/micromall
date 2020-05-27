@@ -37,12 +37,9 @@ public class FileServiceImpl implements FileService {
             if (result) {
                 targetFile.delete();
             }
-
         } catch (IOException e) {
             logger.error("上传文件异常", e);
             return null;
-        } finally {
-
         }
         return targetFile.getName();
     }

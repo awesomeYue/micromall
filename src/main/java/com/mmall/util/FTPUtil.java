@@ -31,6 +31,12 @@ public class FTPUtil {
         this.pwd = pwd;
     }
 
+    /**
+     * 上传文件
+     * @param files
+     * @return
+     * @throws IOException
+     */
     public static boolean uploadFile(List<File> files) throws IOException {
         FTPUtil ftpUtil = new FTPUtil(ftpIp, ftpPort, ftpUser, ftpPwd);
         logger.info("开始连接ftp服务器,开始上传");
@@ -39,6 +45,13 @@ public class FTPUtil {
         return result;
     }
 
+    /**
+     * 将文件上传至ftp服务器
+     * @param remotePath 远程的路径
+     * @param files 上传的文件集合
+     * @return 返回true上传成功，false上传失败
+     * @throws IOException
+     */
     private boolean uploadFile(String remotePath, List<File> files) throws IOException {
         boolean uploaded = false;
         FileInputStream fis = null;
@@ -66,6 +79,14 @@ public class FTPUtil {
         return uploaded;
     }
 
+    /**
+     * 连接ftp服务器
+     * @param ip 地址
+     * @param port 端口
+     * @param user 用户名
+     * @param pwd 密码
+     * @return true连接成功，false连接失败
+     */
     private boolean connectServer(String ip, int port, String user, String pwd) {
         boolean isSuccess = false;
         client = new FTPClient();
