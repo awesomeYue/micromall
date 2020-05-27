@@ -25,9 +25,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     CategoryMapper categoryMapper;
 
-    @Autowired
-    CategoryService categoryService;
-
     @Override
     public ServerResponse addCategory(String cateName, Integer parentId) {
         if (parentId == null || StringUtils.isBlank(cateName)) {
