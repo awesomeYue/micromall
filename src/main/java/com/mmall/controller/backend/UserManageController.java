@@ -16,24 +16,22 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/manage/user")
 public class UserManageController {
 
-    @Autowired
-    private UserService userService;
+  @Autowired private UserService userService;
 
-    @RequestMapping(value="login.do",method = RequestMethod.POST)
-    @ResponseBody
-    public ServerResponse<User> login(String username, String password, HttpSession session){
-        ServerResponse<User> response = userService.login(username,password);
-        if(response.isSuccess()){
-            User user = response.getData();
-            if(user.getRole() == Const.Role.ROLE_ADMIN){
-                //说明登录的是管理员
-                session.setAttribute(Const.CURRENT_USER,user);
-                return response;
-            }else{
-                return ServerResponse.createByErrorMessage("不是管理员,无法登录");
-            }
-        }
+  @RequestMapping(value = "login.do", method = RequestMethod.POST)
+  @ResponseBody
+  public ServerResponse<User> login(String username, String password, HttpSession session) {
+    ServerResponse<User> response = userService.login(username, password);
+    if (response.isSuccess()) {
+      User user = response.getData();
+      if (user.getRole() == Const.Role.ROLE_ADMIN) {
+        // 说明登录的是管理员
+        session.setAttribute(Const.CURRENT_USER, user);
         return response;
+      } else {
+        return ServerResponse.createByErrorMessage("不是管理员,无法登录");
+      }
     }
-
+    return response;
+  }
 }

@@ -7,13 +7,11 @@ import java.util.List;
 
 public interface CategoryService {
 
-    ServerResponse addCategory(String cateName,Integer parentId);
+  ServerResponse addCategory(String cateName, Integer parentId);
 
-    ServerResponse updateCategory(String cateName,Integer parentId);
+  ServerResponse updateCategory(String cateName, Integer parentId);
 
-    ServerResponse<List<Category>> getChildrenParallelCategory(Integer categoryId);
+  ServerResponse<List<Category>> getChildrenParallelCategory(Integer categoryId);
 
-    ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId);
-
-
+  ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId);
 }
