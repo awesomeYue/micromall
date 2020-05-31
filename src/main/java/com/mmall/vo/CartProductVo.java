@@ -13,7 +13,7 @@ public class CartProductVo {
   private String productMainImage;
   private BigDecimal productPrice;
   private BigDecimal productTotalPrice;
-  private Boolean productStatus;
+  private Integer productStatus;
   private Integer productStock; // 产品库存
   private Integer productChecked;
 
@@ -91,11 +91,11 @@ public class CartProductVo {
     this.productTotalPrice = productTotalPrice;
   }
 
-  public Boolean getProductStatus() {
+  public Integer getProductStatus() {
     return productStatus;
   }
 
-  public void setProductStatus(Boolean productStatus) {
+  public void setProductStatus(Integer productStatus) {
     this.productStatus = productStatus;
   }
 

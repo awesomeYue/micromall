@@ -114,6 +114,8 @@ public class CartServiceImpl implements CartService {
           cartProductVo.setProductSubtitle(product.getSubtitle());
           cartProductVo.setProductMainImage(product.getMainImage());
           cartProductVo.setProductPrice(product.getPrice());
+          cartProductVo.setProductStatus(product.getStatus());
+          cartProductVo.setProductStock(product.getStock());
           // 判断库存
           int buyLimitCount = 0;
           if (product.getStock() >= cart.getQuantity()) {
