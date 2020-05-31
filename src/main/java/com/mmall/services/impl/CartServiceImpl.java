@@ -1,5 +1,6 @@
 package com.mmall.services.impl;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
@@ -47,8 +48,53 @@ public class CartServiceImpl implements CartService {
       cart.setQuantity(count);
       cartMapper.updateByPrimaryKeySelective(cart);
     }
+    return this.list(userId);
+  }
+
+  @Override
+  public ServerResponse<CartVo> update(Integer userId, Integer productId, Integer count) {
+    if (productId == null || count == null) {
+      return ServerResponse.createByErrorCodeMessage(
+          ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+    }
+    Cart cart = cartMapper.selectByUserIdAndProductId(userId, productId);
+    if (cart != null) {
+      cart.setQuantity(count);
+      cartMapper.updateByPrimaryKeySelective(cart);
+    }
+    return this.list(userId);
+  }
+
+  @Override
+  public ServerResponse<CartVo> delete(Integer userId, String productIds) {
+    List<String> productIdList = Splitter.on(",").splitToList(productIds);
+    if (CollectionUtils.isEmpty(productIdList)) {
+      return ServerResponse.createByErrorCodeMessage(
+          ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+    }
+    cartMapper.deleteByUserIdAndProductIds(userId, productIdList);
+    return this.list(userId);
+  }
+
+  @Override
+  public ServerResponse<CartVo> list(Integer userId) {
     CartVo cartVo = this.getCartVoLimit(userId);
     return ServerResponse.createBySuccess(cartVo);
+  }
+
+  @Override
+  public ServerResponse selectOrUnselect(Integer userId, Integer productId, Integer checked) {
+    if (checked == null) {
+      return ServerResponse.createByErrorCodeMessage(
+          ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+    }
+    cartMapper.selectOrUnselect(userId, productId, checked);
+    return this.list(userId);
+  }
+
+  @Override
+  public ServerResponse getCartProductCount(Integer userId) {
+    return null;
   }
 
   private CartVo getCartVoLimit(Integer userId) {

@@ -18,6 +18,17 @@ public class CartController {
 
   @Autowired CartService cartService;
 
+  @RequestMapping("list.do")
+  @ResponseBody
+  public ServerResponse list(HttpSession session, Integer productId, Integer count) {
+    User user = (User) session.getAttribute(Const.CURRENT_USER);
+    if (user == null) {
+      return ServerResponse.createByErrorCodeMessage(
+          ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+    }
+    return cartService.list(user.getId());
+  }
+
   @RequestMapping("add.do")
   @ResponseBody
   public ServerResponse add(HttpSession session, Integer productId, Integer count) {
@@ -26,7 +37,64 @@ public class CartController {
       return ServerResponse.createByErrorCodeMessage(
           ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
     }
-    cartService.add(user.getId(), productId, count);
-    return null;
+    return cartService.add(user.getId(), productId, count);
+  }
+
+  @RequestMapping("update.do")
+  @ResponseBody
+  public ServerResponse update(HttpSession session, Integer productId, Integer count) {
+    User user = (User) session.getAttribute(Const.CURRENT_USER);
+    if (user == null) {
+      return ServerResponse.createByErrorCodeMessage(
+          ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+    }
+    return cartService.update(user.getId(), productId, count);
+  }
+
+  @RequestMapping("delete_product.do")
+  @ResponseBody
+  public ServerResponse delete(HttpSession session, String productIds) {
+    User user = (User) session.getAttribute(Const.CURRENT_USER);
+    if (user == null) {
+      return ServerResponse.createByErrorCodeMessage(
+          ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+    }
+    return cartService.delete(user.getId(), productIds);
+  }
+
+  // 全不选或者全不选
+  @RequestMapping("select_or_unselect_all.do")
+  @ResponseBody
+  public ServerResponse unSelectAll(HttpSession session, Integer checked) {
+    User user = (User) session.getAttribute(Const.CURRENT_USER);
+    if (user == null) {
+      return ServerResponse.createByErrorCodeMessage(
+          ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+    }
+    return cartService.selectOrUnselect(user.getId(), null, checked);
+  }
+
+  // 单选
+  @RequestMapping("select_or_unselect_product.do")
+  @ResponseBody
+  public ServerResponse selectProduct(HttpSession session, Integer productId, Integer checked) {
+    User user = (User) session.getAttribute(Const.CURRENT_USER);
+    if (user == null) {
+      return ServerResponse.createByErrorCodeMessage(
+          ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+    }
+    return cartService.selectOrUnselect(user.getId(), productId, checked);
+  }
+
+  // 查询当前用户的购物车里面的产品数量如果一个产品的数量为10，那么数量就是10
+  @RequestMapping("get_cart_product_count.do")
+  @ResponseBody
+  public ServerResponse getCartProductCount(HttpSession session) {
+    User user = (User) session.getAttribute(Const.CURRENT_USER);
+    if (user == null) {
+      return ServerResponse.createByErrorCodeMessage(
+          ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+    }
+    return cartService.getCartProductCount(user.getId());
   }
 }
