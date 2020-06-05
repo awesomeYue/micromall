@@ -1,8 +1,11 @@
 package com.mmall.vo;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.List;
 
+@Data
 public class CartVo {
 
   List<CartProductVo> cartProductVoList;
@@ -10,36 +13,4 @@ public class CartVo {
   private BigDecimal cartTotalPrice;
   private String imageHost;
   private Boolean allChecked; // 是否已经都勾选
-
-  public List<CartProductVo> getCartProductVoList() {
-    return cartProductVoList;
-  }
-
-  public void setCartProductVoList(List<CartProductVo> cartProductVoList) {
-    this.cartProductVoList = cartProductVoList;
-  }
-
-  public BigDecimal getCartTotalPrice() {
-    return cartTotalPrice;
-  }
-
-  public void setCartTotalPrice(BigDecimal cartTotalPrice) {
-    this.cartTotalPrice = cartTotalPrice;
-  }
-
-  public String getImageHost() {
-    return imageHost;
-  }
-
-  public void setImageHost(String imageHost) {
-    this.imageHost = imageHost;
-  }
-
-  public Boolean getAllChecked() {
-    return allChecked;
-  }
-
-  public void setAllChecked(Boolean allChecked) {
-    this.allChecked = allChecked;
-  }
 }

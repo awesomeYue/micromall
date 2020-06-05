@@ -154,12 +154,16 @@ public class UserServiceImpl implements UserService {
     if (resultCount > 0) {
       return ServerResponse.createByErrorMessage("email已存在,请更换email再尝试更新");
     }
-    User updateUser = new User();
-    updateUser.setId(user.getId());
-    updateUser.setEmail(user.getEmail());
-    updateUser.setPhone(user.getPhone());
-    updateUser.setQuestion(user.getQuestion());
-    updateUser.setAnswer(user.getAnswer());
+    User updateUser =
+        new User() {
+          {
+            setId(user.getId());
+            setEmail(user.getEmail());
+            setPhone(user.getPhone());
+            setQuestion(user.getQuestion());
+            setAnswer(user.getAnswer());
+          }
+        };
 
     int updateCount = userMapper.updateByPrimaryKeySelective(updateUser);
     if (updateCount > 0) {
