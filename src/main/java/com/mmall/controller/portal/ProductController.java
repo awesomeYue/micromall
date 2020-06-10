@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/product")
-public class ProductConttroller {
+public class ProductController {
 
   @Autowired ProductService productService;
 
